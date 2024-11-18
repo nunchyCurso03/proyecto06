@@ -20,7 +20,8 @@ public abstract class Fichero implements Closeable {
         while ((valor = fis.read()) != -1) {
             baos.write(valor);
         }
-
+        fis.close();
+        
         return baos.toByteArray();
     }
 
@@ -50,5 +51,4 @@ public abstract class Fichero implements Closeable {
     }
 
     public abstract void hacerElLunes();
-
 }
