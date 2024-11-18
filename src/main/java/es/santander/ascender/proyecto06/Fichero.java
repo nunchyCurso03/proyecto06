@@ -15,20 +15,17 @@ public abstract class Fichero implements Closeable {
     public byte[] leer(String nombreFichero) throws IOException {
         int valor;
 
-        FileInputStream fis = new FileInputStream(nombreFichero);
-        ByteArrayOutputStream baos = null;
-        try {
-            baos = new ByteArrayOutputStream();    
+        byte[] resultado;
+        
+        try (FileInputStream fis = new FileInputStream(nombreFichero); 
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();) 
+        {
             while ((valor = fis.read()) != -1) {
                 baos.write(valor);
             }
-            fis.close();
-            baos.close();
-        } catch (IOException ioe) {
-            fis.close();
-            baos.close();
-        }
-        return baos.toByteArray();
+            resultado = baos.toByteArray();
+        } 
+        return resultado;
     }
 
     public byte[] leerEnBloques(String nombreFichero) throws IOException {
