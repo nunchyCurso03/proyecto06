@@ -32,19 +32,24 @@ public abstract class Fichero implements Closeable {
         int cuantos;
         byte[] valores = new byte[4096];
 
-        FileInputStream fis = new FileInputStream(nombreFichero);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        while ((cuantos = fis.read(valores)) != -1) {
-            baos.write(valores, 0, cuantos);
+        byte[] resultado;
+
+        try (FileInputStream fis = new FileInputStream(nombreFichero); 
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();) 
+        {
+            while ((cuantos = fis.read(valores)) != -1) {
+                baos.write(valores, 0, cuantos);
+            }
+            resultado = baos.toByteArray();
         }
 
-        return baos.toByteArray();
+        return resultado;
     }
 
     public void escribir(String nombreFichero, byte[] datos) throws IOException {
-        FileOutputStream fos = new FileOutputStream(nombreFichero);
-
-        fos.write(datos);
+        try (FileOutputStream fos = new FileOutputStream(nombreFichero);) {
+            fos.write(datos);
+        }
     }
 
     @Override
