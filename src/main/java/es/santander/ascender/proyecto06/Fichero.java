@@ -16,12 +16,18 @@ public abstract class Fichero implements Closeable {
         int valor;
 
         FileInputStream fis = new FileInputStream(nombreFichero);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        while ((valor = fis.read()) != -1) {
-            baos.write(valor);
+        ByteArrayOutputStream baos = null;
+        try {
+            baos = new ByteArrayOutputStream();    
+            while ((valor = fis.read()) != -1) {
+                baos.write(valor);
+            }
+            fis.close();
+            baos.close();
+        } catch (IOException ioe) {
+            fis.close();
+            baos.close();
         }
-        fis.close();
-        
         return baos.toByteArray();
     }
 
