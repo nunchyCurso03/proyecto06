@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -66,6 +67,8 @@ public class FicheroTest {
     void testLeerEnBloques() {
         System.out.println("Test2");
     }
+
+
 
     public class FicheroParaTesting2 extends Fichero {
 
