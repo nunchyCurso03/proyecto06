@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Arreglo {
+
+    List<Perro> perrera = new ArrayList<>();
+
     public List<String> localizaDuplicados(List<String> lista1, List<String> lista2) {
         ArrayList<String> resultado = new ArrayList<>();
 
