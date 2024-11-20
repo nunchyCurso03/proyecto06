@@ -1,11 +1,14 @@
 package es.santander.ascender.proyecto06;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Objects;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -64,10 +67,25 @@ public class FicheroTest {
     }
 
     @Test
-    void testLeerEnBloques() {
-        System.out.println("Test2");
+    void testLeerEnBloques() throws IOException {
+        byte[] leido = cut.leerEnBloques("./src/test/resources/juan.txt");
+        assertArrayEquals("adios".getBytes(), leido);
     }
 
+    @Test
+    void testEncoding() {
+        String cadena = "Holáñ";
+        
+        byte[] bytes1 = cadena.getBytes(Charset.forName("UTF-8"));
+        byte[] bytes2 = cadena.getBytes(Charset.forName("ISO-8859-1"));
+
+        for (int i =  0 ; i < bytes1.length; i++) {
+            if (bytes1[i] != bytes2[i]) {
+                return;
+            }
+        }
+        fail("No he encontrado diferencias");
+    }
 
 
     public class FicheroParaTesting2 extends Fichero {
